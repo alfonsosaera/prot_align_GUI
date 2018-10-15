@@ -1,7 +1,9 @@
 # prot_align_GUI
 
-Here you can find the python script I did as part of my MSc in Bioinformatics
-at UAB.
+Graphic user interface that aligns two protein sequences with the selected
+substitution matrix using a simplified version of the needleman-wunsch
+algorithm.
+It is based on my [prot_align script](https://github.com/alfonsosaera/prot_align)
 
 The script aligns two protein sequences from a Multi-FASTA file using a
 simplified version of the needleman-wunsch algorithm and reports the score and
