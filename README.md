@@ -12,7 +12,7 @@ To launch the application in __windows__, open a Command prompt window in the fo
 ```shell
 py frontend.py
 ```
-To lauch the application in __linux__, open a terminal in the folder of the `frontend.py` file and type:
+To lauch the application in __linux__ or __MAC OS X__, open a terminal in the folder of the `frontend.py` file and type:
 ```shell
 python3 frontend.py
 ```
