@@ -53,4 +53,6 @@ GHR-II  DRQNSLLLTP--NSTPAPQLII-P-KTMPT-PGGYLTPDLLGSITP  583
 GHR-I   DSQHSLLLNPPPRQSPPPCLPHHPTKALAAMPVGYVTPDLLGNLSP  647
 ```
 
+<img src=img/app_empty.png height="200">
+
 [[https://github.com/alfonsosaera/prot_align_GUI/tree/master/img/app_empty.png|alt=app]]
