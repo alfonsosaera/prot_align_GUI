@@ -5,19 +5,26 @@ substitution matrix using a simplified version of the needleman-wunsch
 algorithm.
 It is based on my [prot_align script](https://github.com/alfonsosaera/prot_align)
 
-The script aligns two protein sequences from a Multi-FASTA file using a
-simplified version of the needleman-wunsch algorithm and reports the score and
-the alignment in a printable format.
-The algorithm uses a dynamic programming approach considering that each
-insertion has a penalty of -4, each deletion has a penalty of -2, and each
-substitution has a different cost depending on the amino acid substituted using
-the specified BLOSUM matrix.
+<p align="center">
+<img src=img/app_empty.png height="500">
+</p>
 
-Running the following code in a Windows terminal
+# Usage
+
+To launch the application in __windows__, open a Command prompt window in the folder of the frontend.py file and type:
 ```
-py -2.7 align.py --input .\\data\\GHRs.fasta --block_size 90
+py frontend.py
 ```
-will return
+To lauch the application in __linux__, open a terminal in the folder of the frontend.py file and type:
+```
+python3 frontend.py
+```
+or (make sure you made frontend_unix.py executable with `chmod`)
+
+```
+./frontend_unix.py
+```
+
 ```
 Alignment score is: 1165
 
@@ -54,7 +61,3 @@ GHR-II  DRQNSLLLTP--NSTPAPQLII-P-KTMPT-PGGYLTPDLLGSITP  583
         | | |||| |     | | |   | |     | || ||||||   |
 GHR-I   DSQHSLLLNPPPRQSPPPCLPHHPTKALAAMPVGYVTPDLLGNLSP  647
 ```
-
-<p align="center">
-<img src=img/app_empty.png height="500">
-</p>
