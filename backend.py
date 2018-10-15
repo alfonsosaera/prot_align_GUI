@@ -162,6 +162,6 @@ def nw_protein(fasta_file, substitution_matrix = "blosum62", block_size = 65):
     matrix = matparser(substitution_matrix)
 
   score, alignment = print_alignment(fasta_file, matrix, block_size)
-  res = "\nFile: "+fasta_file+"    Substiturion matrix: "+substitution_matrix+\
+  res = "\nFile: "+fasta_file+"    Substitution matrix: "+substitution_matrix+\
   "\nAlignment score: " + str(score) + "\n" + alignment
   return res

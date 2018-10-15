@@ -1,6 +1,6 @@
 # prot_align_GUI
 
-Graphic user interface that aligns two protein sequences with the selected substitution matrix using a simplified version of the needleman-wunsch algorithm. It is written in `Python` using the `tkinter` module and based on my [prot_align script](https://github.com/alfonsosaera/prot_align)
+Graphic user interface that aligns two protein sequences with the selected substitution matrix using a simplified version of the needleman-wunsch algorithm. It is written in `Python` using the `tkinter` module and based on my [prot_align script](https://github.com/alfonsosaera/prot_align).
 
 <p align="center">
 <img src=img/app_empty.png height="500">
@@ -8,17 +8,17 @@ Graphic user interface that aligns two protein sequences with the selected subst
 
 # Usage
 
-To launch the application in __windows__, open a Command prompt window in the folder of the frontend.py file and type:
-```
+To launch the application in __windows__, open a Command prompt window in the folder of the `frontend.py` file and type:
+```shell
 py frontend.py
 ```
-To lauch the application in __linux__, open a terminal in the folder of the frontend.py file and type:
-```
+To lauch the application in __linux__, open a terminal in the folder of the `frontend.py` file and type:
+```shell
 python3 frontend.py
 ```
 or (make sure you made `frontend_unix.py` executable with `chmod`)
 
-```
+```shell
 ./frontend_unix.py
 ```
 Then write the path of Multi-FASTA file (the first 2 sequences will be used)
@@ -41,7 +41,7 @@ You can use any substitution matrix by writing the path to the substitution matr
 
 Custom substitution matrices must be in genbank format (or similar enough for the `matparser` function). The following python code can be used to download and visualize alternative substitution matrices.
 
-```
+```python
 import ftplib
 
 path = 'blast/matrices/'
@@ -72,8 +72,8 @@ or enlarge the window
 
 # Installation
 
-The `biopython` module is required to use the predefined substitution matrices. Download the repository from the github website or clone it by typing in the terminal
+The `biopython` module is required to use the predefined substitution matrices. Download the repository from [github](https://github.com/alfonsosaera/prot_align_GUI) or clone it by typing in the terminal
 
-```
+```shell
 git clone https://github.com/alfonsosaera/prot_align_GUI.git
 ```
