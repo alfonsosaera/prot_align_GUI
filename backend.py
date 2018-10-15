@@ -1,10 +1,12 @@
 #!/usr/bin/env python2
 
 # Alfonso Saera Vila
+#
+# V 1.0
 # 10/10/2018
+# Back end script with the functions to power the GUI coded in frontend.py
 
-# Explicacion de la falla
-
+# import custom made matparser() function from matparser.py
 from matparser import *
 
 ################
@@ -16,11 +18,11 @@ DEL = 2 # deletion penalty
 #############
 # FUNCTIONS #
 #############
+
+# define backtrace_matrix() to choose pathway in dynamic programming matrix and
+# return CIGAR (MDIMM...)
 def backtrace_matrix(pattern, text, dp_matrix):
-  # choose pathway in dynamic matrix and generate CIGAR (MDIMM...)
-  i = len(pattern)
-  j = len(text)
-  CIGAR = []
+  i, j, CIGAR = len(pattern), len(text), []
   while i>0 and j>0:
     if dp_matrix[i][j] == dp_matrix[i-1][j] - DEL: #Deletion
       i -= 1
@@ -28,27 +30,29 @@ def backtrace_matrix(pattern, text, dp_matrix):
     elif dp_matrix[i][j] == dp_matrix[i][j-1] - INS: #Insertion
       j -= 1
       CIGAR.insert(0,'I')
-    else: #Substitution
+    else:
       i -= 1
       j -= 1
       if pattern[i] == text[j]:
-        CIGAR.insert(0, "M")
+        CIGAR.insert(0, "M") #Match
       else:
-        CIGAR.insert(0, "X")
+        CIGAR.insert(0, "X") #Substitution
   if i > 0:
     for _ in range(i): CIGAR.insert(0, "D")
   if j > 0:
     for _ in range(j): CIGAR.insert(0, "I")
   return CIGAR
 
+# define score_match() function to read substitution matrix when
+# edit_distance_dp() function gets match-missmatch
 def score_match(pair, matrix):
-  # read substitution matrix when edit_distance_dp function gets match-missmatch
-  #read value from matrix
   if pair in matrix:
     return matrix[pair]
   else:
     return matrix[tuple(reversed(pair))]
 
+# define edit_distance_dp() function to calculate the dynamic programming matrix
+# with the edit distance between pattern and text. Returns the score and CIGAR
 def edit_distance_dp(pattern,text, substitution_matrix):
   # Init dynamic programming matrix
   dp_matrix = [[0 for i in range(len(text)+1)] for j in range(len(pattern)+1)]
@@ -67,29 +71,31 @@ def edit_distance_dp(pattern,text, substitution_matrix):
   CIGAR = backtrace_matrix(pattern, text, dp_matrix)
   return score, CIGAR
 
+# define pretty_alignment() to add gaps in sequences to generate alignment
+# creating a line with | marking identities between the sequences. Returns the
+# alignment and its score
 def pretty_alignment(pattern,text,substitution_matrix):
-  # add gaps to sequences to generate alignment and create line with | marking identities
   score, CIGAR = edit_distance_dp(pattern,text,substitution_matrix)
   line1, line2, line3 = "", "", ""
   pattern_index, text_index = 0, 0
   for i in CIGAR:
-    if i == "M":
+    if i == "M": # match
       line1 += pattern[pattern_index]
       line2 += "|"
       line3 += text[text_index]
       pattern_index += 1
       text_index += 1
-    if i == "I":
+    if i == "I": # insertion
       line1 += "-"
       line2 += " "
       line3 += text[text_index]
       text_index += 1
-    if i == "D":
+    if i == "D": # deletion
       line1 += pattern[pattern_index]
       line2 += " "
       line3 += "-"
       pattern_index += 1
-    if i == "X":
+    if i == "X": # missmatch
       line1 += pattern[pattern_index]
       line2 += " "
       line3 += text[text_index]
@@ -97,8 +103,9 @@ def pretty_alignment(pattern,text,substitution_matrix):
       text_index += 1
   return line1, line2, line3, score
 
+# define read_fasta() function to read a fasta file and return a list of lists
+# with name and seq
 def read_fasta(file):
-  # read fasta file and generate list of lists with name and seq
   list = []
   f = open(file, 'r')
   header = f.readline()
@@ -116,12 +123,16 @@ def read_fasta(file):
     list.append(seq)
   return list
 
+# define print_alignment() function to get the first 2 seq names and seqs from
+# input file and return a "paper-like" alignment and its score
 def print_alignment(fasta_file, substitution_matrix, block_size):
-  # gets first 2 seq names and seqs from input file and generates a "paper-like"
-  # alignment
+  # Get sequences
   pattern, text = read_fasta(fasta_file)[0][1], read_fasta(fasta_file)[1][1]
+  # Get names
   pattern_name, text_name = read_fasta(fasta_file)[0][0], read_fasta(fasta_file)[1][0]
+  # Get alignment and score
   line1, line2, line3, score = pretty_alignment(pattern,text,substitution_matrix)
+  # Generate paper like alignment
   aa1_len, aa2_len, result = 0, 0, ""
   for index in range(0, len(line1), block_size):
     aa1 = line1[index : index + block_size]
@@ -136,11 +147,11 @@ def print_alignment(fasta_file, substitution_matrix, block_size):
       break
   return score, result
 
+# define nw_protein() function to print the alignment of the first 2 sequences
+# in input file.fasta with the selected options in the GUI and the score
 def nw_protein(fasta_file, substitution_matrix = "blosum62", block_size = 65):
-  # prints alignment of the first 2 sequences in input file.fasta and the
-  # score of the alignment
   # choose substitution matrix depending on passed argument
-  from Bio.SubsMat import MatrixInfo # get matrix using biopython
+  from Bio.SubsMat import MatrixInfo # get matrices using biopython
   if substitution_matrix == "blosum62":
     matrix = MatrixInfo.blosum62
   elif substitution_matrix == "blosum45":
@@ -151,4 +162,6 @@ def nw_protein(fasta_file, substitution_matrix = "blosum62", block_size = 65):
     matrix = matparser(substitution_matrix)
 
   score, alignment = print_alignment(fasta_file, matrix, block_size)
-  return "\nAlignment score is: " + str(score) + "\n" + alignment
+  res = "\nFile: "+fasta_file+"    Substiturion matrix: "+substitution_matrix+\
+  "\nAlignment score: " + str(score) + "\n" + alignment
+  return res
