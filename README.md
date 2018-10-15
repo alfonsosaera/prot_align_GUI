@@ -53,4 +53,6 @@ GHR-II  DRQNSLLLTP--NSTPAPQLII-P-KTMPT-PGGYLTPDLLGSITP  583
 GHR-I   DSQHSLLLNPPPRQSPPPCLPHHPTKALAAMPVGYVTPDLLGNLSP  647
 ```
 
-<img src=img/app_empty.png height="600">
+<p align="center">
+<img src=img/app_empty.png height="500">
+</p>
