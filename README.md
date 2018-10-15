@@ -1,9 +1,6 @@
 # prot_align_GUI
 
-Graphic user interface that aligns two protein sequences with the selected
-substitution matrix using a simplified version of the needleman-wunsch
-algorithm.
-It is based on my [prot_align script](https://github.com/alfonsosaera/prot_align)
+Graphic user interface that aligns two protein sequences with the selected substitution matrix using a simplified version of the needleman-wunsch algorithm. It is written in `Python` using the `tkinter` module and based on my [prot_align script](https://github.com/alfonsosaera/prot_align)
 
 <p align="center">
 <img src=img/app_empty.png height="500">
@@ -19,45 +16,64 @@ To lauch the application in __linux__, open a terminal in the folder of the fron
 ```
 python3 frontend.py
 ```
-or (make sure you made frontend_unix.py executable with `chmod`)
+or (make sure you made `frontend_unix.py` executable with `chmod`)
 
 ```
 ./frontend_unix.py
 ```
+Then write the path of Multi-FASTA file (the first 2 sequences will be used)
+
+<p align="center">
+<img src=img/app_file.png height="500">
+</p>
+
+and click on the desired Blosum matrix to align the protiens
+
+<p align="center">
+<img src=img/app_b45.png height="500">
+</p>
+
+You can use any substitution matrix by writing the path to the substitution matrix file and clicking `Custom:` button.
+
+<p align="center">
+<img src=img/app_custom.png height="500">
+</p>
+
+Custom substitution matrices must be in genbank format (or similar enough for the `matparser` function). The following python code can be used to download and visualize alternative substitution matrices.
 
 ```
-Alignment score is: 1165
+import ftplib
 
-GHR-II  MA--AAL-------------T--LLFCLYILTSSALE--SA--SEQV--H-----PQRDPHLTGCVSANMETFRCRWNVGTLQNLSKPGE  62
-        ||                  |  ||  |  | || |   |   |  |  |     |   || | | |   ||||| |  |   ||| ||
-GHR-I   MAVFSSSSSSSSSSSSSSSSTSNLLL-L-LLVSS-LDWLSTRGSVFVMDHMTSSAPV-GPHFTECISREQETFRCWWSPGGFHNLSSPGA  86
+path = 'blast/matrices/'
+filename = 'BLOSUM62'
 
-GHR-II  LRLFYINKLSPLDPPKEWTECPHYS-IDRPNECFFNKNHTSVWTPYKVQLRSRDESTLY-DEN-TFTVDAIVQPDPPVDLTWTTLNESLS  149
-        || ||  | ||     || ||| ||   |  ||||  |||||| ||  |||     | | ||   |||  || ||||| | || || | |
+ftp = ftplib.FTP("ftp.ncbi.nih.gov")
+ftp.login('anonymous', 'password')
+ftp.cwd(path)
+ftp.retrbinary("RETR " + filename ,open(filename, 'wb').write)
+ftp.quit()
 
-GHR-I   LRVFYLKKDSP-N--SEWKECPEYSHLKR--ECFFDVNHTSVWIPYCMQLRGQNNVT-YLDEDYCFTVENIVRPDPPVSLNWTLLNISPS  170
+BlossumFile = open("BLOSUM62", "r")
+temp = BlossumFile.read()
+BlossumFile.close()
+print (temp)
+```
+To visualize long alignments you can scroll down
 
-GHR-II  GTYYDIILSWKPPQSADVAMGWMTLQYEVQY--RSASSDLWHAVE--PVTVTQRSLFGLKHNVNHEVRVRCKMLAG-KEFGEFSDSIF--  232
-        |  ||    | || ||||  |||   || ||  |      | | |  |   ||    ||      ||  || | |  | ||||||| |
-GHR-I   GLSYDVMVNWEPPPSADVGAGWMRIEYEIQYTERN-TTN-WEALEMQP-H-TQQTIYGLQIGKEYEVHIRCRMQAFVK-FGEFSDSVFIQ  255
+<p align="center">
+<img src=img/app_down.png height="500">
+</p>
 
-GHR-II  V-HIPAKVSSFPV-VALLLFGALCLVAILMLVI-ISQQEKLMFILLPPVPGPKIRGIDPELLKKGKLRELTSIL-GGPPN-LR---PELY  314
-        |  ||   | ||   ||  || |    || | | ||||  || ||||||| ||| |||||||||||| ||  || ||    |    |  |
-GHR-I   VTEIPSQDSNFPFKLALI-FGVLGIL-ILILLIGISQQPRLMMILLPPVPAPKIKGIDPELLKKGKLDELNFILSGGGMGGLSTYAPDFY  343
+or enlarge the window
 
-GHR-II  NNDPWVEFIDLDIEE-QS-DKLTDL--DTDCLMH--RSLSS--N--CTPVSIGFRDDDSGRASCCDPDLPSDPEASPFHP-LIPNQTLSK  393
-           ||||||  | |      |      ||  |       |   |  |      | ||||||||| ||||  |         | | |
-GHR-I   QDEPWVEFIEVDAEDADAAEKEENQGSDTQRLLDPPQPVSHHMNTGCAN-AVSFPDDDSGRASCYDPDL-HDQDTLMLMATLLPGQPEDG  431
+<p align="center">
+<img src=img/app_large.png height="500">
+</p>
 
-GHR-II  EVS--C-QTAS--EPSS-P-VQSPASGEPPFAALGREAMYTQVSEVRSSGKVLLSPEEQTEV-EKTTG-KD-TEKDIM-AE--KEKAKKE  470
-        | |      |   | |  | ||    | |    |     | ||| |  || | |||  |    | |    |   |     |   ||  ||
-GHR-I   EDSFDVVERAPVIERSERPLVQTQTGG-PQ-TWLNTD-FYAQVSNVMPSGGVVLSPGQQLRFQESTSAAEDEAQKKGKGSEDSEEKTQKE  518
+# Installation
 
-GHR-II  --FQLLVVNADHG-GYTSELNAGKMS-PRLSIGDQSEPGLTG-D-LSPLP-PASPYHESDTTAVSP--LP--P-----APV--YTVVEGV  542
-          ||||||    | ||| | ||   | |  |      ||  |     | |    |         ||  ||  |     |||  ||||  |
-GHR-I   LQFQLLVVDPE-GSGYTTESNARQISTPP-ST-PM--PG-SGYQTIHPQPVETKPAATAENNQ-SPYILPDSPQSQFFAPVADYTVVQEV  601
+The `biopython` module is required to use the predefined substitution matrices. Download the repository from the github website or clone it by typing in the terminal
 
-GHR-II  DRQNSLLLTP--NSTPAPQLII-P-KTMPT-PGGYLTPDLLGSITP  583
-        | | |||| |     | | |   | |     | || ||||||   |
-GHR-I   DSQHSLLLNPPPRQSPPPCLPHHPTKALAAMPVGYVTPDLLGNLSP  647
+```
+git clone https://github.com/alfonsosaera/prot_align_GUI.git
 ```
