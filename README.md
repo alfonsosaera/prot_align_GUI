@@ -74,7 +74,9 @@ or enlarge the window
 
 # Installation
 
-The [`biopython` module](https://biopython.org/wiki/Download) is required to use the predefined substitution matrices. Download the repository from [github](https://github.com/alfonsosaera/prot_align_GUI) or clone it by typing in the terminal
+The [`biopython` module](https://biopython.org/wiki/Download) is required to use the predefined substitution matrices.
+
+Download the prot_align_GUI repository from [github](https://github.com/alfonsosaera/prot_align_GUI) or clone it by typing in the terminal
 
 ```shell
 git clone https://github.com/alfonsosaera/prot_align_GUI.git
