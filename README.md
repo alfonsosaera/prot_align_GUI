@@ -1,6 +1,6 @@
 # prot_align_GUI
 
-Graphical user interface that aligns two protein sequences with the selected substitution matrix using a simplified version of the needleman-wunsch algorithm. It is written in `Python` using the `tkinter` module.
+Graphical user interface that aligns two protein sequences with the selected substitution matrix using a simplified version of the needleman-wunsch algorithm. It is written in `Python` using the `tkinter` module for the GUI.
 
 <p align="center">
 <img src=img/app_empty.png height="500">
