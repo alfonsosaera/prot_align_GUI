@@ -23,7 +23,7 @@ or (make sure you made `frontend_unix.py` executable with `chmod`)
 ```shell
 ./frontend_unix.py
 ```
-Then write the path of Multi-FASTA file (the first 2 sequences will be used)
+Then write the path of a Multi-FASTA file (the first 2 sequences will be used)
 
 <p align="center">
 <img src=img/app_file.png height="500">
@@ -74,7 +74,7 @@ or enlarge the window
 
 # Installation
 
-The `biopython` module is required to use the predefined substitution matrices. Download the repository from [github](https://github.com/alfonsosaera/prot_align_GUI) or clone it by typing in the terminal
+The [`biopython` module](https://biopython.org/wiki/Download) is required to use the predefined substitution matrices. Download the repository from [github](https://github.com/alfonsosaera/prot_align_GUI) or clone it by typing in the terminal
 
 ```shell
 git clone https://github.com/alfonsosaera/prot_align_GUI.git
