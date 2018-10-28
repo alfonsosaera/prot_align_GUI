@@ -2,9 +2,7 @@
 
 Graphical user interface that aligns two protein sequences with the selected substitution matrix using a simplified version of the needleman-wunsch algorithm. It is written in `Python` using the `tkinter` module for the GUI.
 
-<p align="center">
-<img src=img/app_empty_OS.png height="500">
-</p>
+![](img/app_empty_OS.png)
 
 This is an improvement of my [prot_align script](https://github.com/alfonsosaera/prot_align) that supports the use of user provided substitution matrices.
 
